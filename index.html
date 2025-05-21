@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram</title>
+    <style>
+        /* Styles généraux */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        
+        body {
+            background-color: #000;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        /* Styles du formulaire */
+        main {
+            width: 100%;
+            max-width: 350px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            justify-content: center;
+        }
+        
+        .login-container {
+            width: 100%;
+            border: 1px solid #262626;
+            background-color: #000;
+            padding: 40px 40px;
+            margin-bottom: 10px;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 36px;
+            font-family: 'Brush Script MT', cursive;
+            font-size: 36px;
+        }
+        
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+        
+        input {
+            width: 100%;
+            padding: 10px;
+            background-color: #000;
+            border: 1px solid #262626;
+            border-radius: 3px;
+            color: #fff;
+            font-size: 12px;
+        }
+        
+        button {
+            width: 100%;
+            background-color: #0095F6;
+            color: white;
+            padding: 7px 0;
+            border: none;
+            border-radius: 4px;
+            margin-top: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 18px 0;
+        }
+        
+        .divider-line {
+            flex: 1;
+            height: 1px;
+            background-color: #262626;
+        }
+        
+        .divider-text {
+            margin: 0 18px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #A8A8A8;
+        }
+        
+        .facebook-login {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: #0095F6;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        
+        .forgot-password {
+            text-align: center;
+            font-size: 12px;
+        }
+        
+        .forgot-password a {
+            color: #0095F6;
+        }
+        
+        .report-content {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 12px;
+            color: #A8A8A8;
+        }
+        
+        .report-content a {
+            color: #0095F6;
+        }
+        
+        /* Styles de la section d'inscription */
+        .signup-container {
+            width: 100%;
+            border: 1px solid #262626;
+            background-color: #000;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .signup-container p {
+            font-size: 14px;
+        }
+        
+        .signup-container a {
+            color: #0095F6;
+            font-weight: 600;
+        }
+        
+        /* Styles de la section de téléchargement */
+        .download-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .download-section p {
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .app-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .app-button {
+            height: 40px;
+        }
+        
+        /* Styles du footer */
+        footer {
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: #737373;
+            font-size: 12px;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .footer-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: #737373;
+            font-size: 12px;
+        }
+        
+        .language-select {
+            background-color: transparent;
+            border: none;
+            color: #737373;
+            font-size: 12px;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <div style="flex: 1;"></div>
+    
+    <main>
+        <!-- Formulaire de connexion -->
+        <div class="login-container">
+            <div class="logo">
+                Instagram
+            </div>
+            
+            <form>
+                <input type="text" placeholder="Num. téléphone, nom de profil ou e-mail">
+                <input type="password" placeholder="Mot de passe">
+                <button type="submit">Se connecter</button>
+            </form>
+            
+            <div class="divider">
+                <div class="divider-line"></div>
+                <div class="divider-text">OU</div>
+                <div class="divider-line"></div>
+            </div>
+            
+            <button class="facebook-login">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="#1877F2">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                </svg>
+                Se connecter avec Facebook
+            </button>
+            
+            <div class="forgot-password">
+                <a href="#">Mot de passe oublié ?</a>
+            </div>
+            
+            <div class="report-content">
+                Vous pouvez également <a href="#">signaler le contenu que vous pensez illégal</a> dans votre pays sans vous connecter.
+            </div>
+        </div>
+        
+        <!-- Section d'inscription -->
+        <div class="signup-container">
+            <p>Vous n'avez pas de compte ? <a href="#">Inscrivez-vous</a></p>
+        </div>
+        
+        <!-- Section de téléchargement -->
+        <div class="download-section">
+            <p>Téléchargez l'application.</p>
+            <div class="app-buttons">
+                <a href="#">
+                    <img src="https://static.cdninstagram.com/rsrc.php/v3/yz/r/c5Rp7Ym-Klz.png" alt="Disponible sur Google Play" class="app-button">
+                </a>
+                <a href="#">
+                    <img src="https://static.cdninstagram.com/rsrc.php/v3/yu/r/EHY6QnZYdNX.png" alt="Obtenir sur Microsoft" class="app-button">
+                </a>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="#">Meta</a>
+            <a href="#">À propos</a>
+            <a href="#">Blog</a>
+            <a href="#">Emplois</a>
+            <a href="#">Aide</a>
+            <a href="#">API</a>
+            <a href="#">Confidentialité</a>
+            <a href="#">Conditions</a>
+            <a href="#">Lieux</a>
+            <a href="#">Instagram Lite</a>
+            <a href="#">Threads</a>
+            <a href="#">Importation des contacts et non-utilisateurs</a>
+            <a href="#">Meta Verified</a>
+            <a href="#">Réaliser des contrats ici</a>
+        </div>
+        
+        <div class="footer-bottom">
+            <select class="language-select">
+                <option value="fr">Français</option>
+            </select>
+            <span>© 2023 Instagram par Meta</span>
+        </div>
+    </footer>
+</body>
+</html>
